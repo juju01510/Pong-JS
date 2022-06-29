@@ -3,8 +3,8 @@ const ctx = canvas.getContext("2d");
 let ballRadius = 5;
 let x = canvas.width / 2;
 let y = canvas.height / 2;
-let dx = 2;
-let dy = -1;
+let dx = 5;
+let dy = -5;
 
 let paddleHeight = 50;
 let paddleWidth = 5;
@@ -78,6 +78,12 @@ function draw() {
 	drawPaddle1();
 	drawPaddle2();
 
+	if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+		dx = -dx;
+	}
+	if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+		dy = -dy;
+	}
 	if (downPressed1 && paddleY1 < canvas.height - paddleHeight) {
 		paddleY1 += 5;
 	} else if (upPressed1 && paddleY1 > 0) {
