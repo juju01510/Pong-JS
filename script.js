@@ -1,12 +1,15 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 let ballRadius = 5;
-
+let x = canvas.width / 2;
+let y = canvas.height / 2;
+let dx = 2;
+let dy = -1;
 
 let paddleHeight = 50;
 let paddleWidth = 5;
-let paddleY1 = (canvas.height - paddleHeight)/2;
-let paddleY2 = (canvas.height - paddleHeight)/2;
+let paddleY1 = (canvas.height - paddleHeight) / 2;
+let paddleY2 = (canvas.height - paddleHeight) / 2;
 
 //direction haut/bas paddle1
 let upPressed1 = false;
@@ -30,7 +33,6 @@ function keyDownHandler(e) {
 	} else if (e.keyCode == 40) {
 		downPressed2 = true;
 	}
-
 }
 
 function keyUpHandler(e) {
@@ -39,11 +41,19 @@ function keyUpHandler(e) {
 	} else if (e.keyCode == 87) {
 		downPressed1 = false;
 	}
-    if (e.keyCode == 38) {
+	if (e.keyCode == 38) {
 		upPressed2 = false;
 	} else if (e.keyCode == 40) {
 		downPressed2 = false;
 	}
+}
+
+function drawBall() {
+	ctx.beginPath();
+	ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+	ctx.fillStyle = "blanchedalmond";
+	ctx.fill();
+	ctx.closePath();
 }
 
 function drawPaddle1() {
@@ -55,57 +65,34 @@ function drawPaddle1() {
 }
 
 function drawPaddle2() {
-    ctx.beginPath();
+	ctx.beginPath();
 	ctx.rect(canvas.width - paddleWidth, paddleY2, paddleWidth, paddleHeight);
 	ctx.fillStyle = "blanchedalmond";
 	ctx.fill();
 	ctx.closePath();
 }
 
-
-
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	drawBall();
+	drawPaddle1();
+	drawPaddle2();
 
-    drawPaddle1()
-    drawPaddle2()
+	if (downPressed1 && paddleY1 < canvas.height - paddleHeight) {
+		paddleY1 += 5;
+	} else if (upPressed1 && paddleY1 > 0) {
+		paddleY1 -= 5;
+	}
 
-    if (downPressed1 && paddleY1 < canvas.height - paddleHeight) {
-        paddleY1 += 5;
-    } else if (upPressed1 && paddleY1 > 0) {
-        paddleY1 -= 5;
-    }
+	if (downPressed2 && paddleY2 < canvas.height - paddleHeight) {
+		paddleY2 += 5;
+	} else if (upPressed2 && paddleY2 > 0) {
+		paddleY2 -= 5;
+	}
 
-    if (downPressed2 && paddleY2 < canvas.height - paddleHeight) {
-        paddleY2 += 5;
-    } else if (upPressed2 && paddleY2 > 0) {
-        paddleY2 -= 5;
-    }
+	x += dx;
+	y += dy;
 
-
-    requestAnimationFrame(draw);
-
+	requestAnimationFrame(draw);
 }
-draw()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+draw();
