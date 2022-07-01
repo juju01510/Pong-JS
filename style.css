@@ -22,6 +22,9 @@ body {
 }
 
 canvas {
-	background: radial-gradient(circle, rgb(36, 41, 36) 0%, rgba(32, 26, 30, 1) 50%);
-	border: solid 5px blanchedalmond;
+	border: solid 5px rgb(255, 235, 205);
+}
+
+.blue {
+	color: blue;
 }
